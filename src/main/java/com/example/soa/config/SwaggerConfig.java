@@ -14,7 +14,7 @@ public class SwaggerConfig {
         String apiTitle = "SOA API";
         return new OpenAPI().info(
                 new Info().title(apiTitle).version("1.0.0").contact(
-                        new Contact().name("Vladislav Kuznetsov").email("kuznetsov.vladislav.vuz@gmail.com")
+                        new Contact().name("Vladislav Kuznetsov and Dmitry Sviridov").email("kuznetsov.vladislav.vuz@gmail.com")
                 )
         );
     }
