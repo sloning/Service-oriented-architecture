@@ -192,8 +192,8 @@ public class RouteController {
                     )
             }
     )
-    @DeleteMapping("/{routeId}")
-    public void delete(@PathVariable Integer routeId) {
+    @DeleteMapping("/{route-id}")
+    public void delete(@PathVariable("route-id") Integer routeId) {
         //should delete route
     }
 
@@ -210,13 +210,13 @@ public class RouteController {
                     ),
             }
     )
-    @GetMapping("/distances")
+    @PostMapping("/all-distances")
     public Response<Integer> computeDistances() {
         return new Response<>(0);
     }
 
     @Operation(
-            summary = "Get object (route or location) with minimum name",
+            summary = "Get object with minimum name",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -242,7 +242,7 @@ public class RouteController {
                     )
             }
     )
-    @GetMapping("/minimumName")
+    @PostMapping("/minimum-name")
     public WithName getObjectWithMinimumName() {
         if (Math.random() > 0.5) {
             return new Route();
@@ -266,8 +266,8 @@ public class RouteController {
                     )
             }
     )
-    @GetMapping("/groups/{idTo}")
-    public Map<String, Integer> getGroups(@PathVariable Long idTo) {
+    @PostMapping("/groups/{id-to}")
+    public Map<String, Integer> getGroups(@PathVariable("id-to") Long idTo) {
         return new HashMap<>();
     }
 }

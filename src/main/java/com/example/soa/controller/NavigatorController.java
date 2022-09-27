@@ -11,8 +11,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,8 +48,9 @@ public class NavigatorController {
                     )
             }
     )
-    @GetMapping("/route/{idFrom}/{idTo}/{length}")
-    public Route getRouteByLength(@PathVariable Integer idFrom, @PathVariable int idTo, @PathVariable Length length) {
+
+    @PostMapping("/route/{id-from}/{id-to}/{length}")
+    public Route getRouteByLength(@PathVariable("id-from") Integer idFrom, @PathVariable("id-to") int idTo, @PathVariable Length length) {
         return new Route();
     }
 
@@ -69,8 +70,8 @@ public class NavigatorController {
                     )
             }
     )
-    @GetMapping("/routes/{idFrom}/{idTo}/{orderBy}")
-    public Route getOrderedRoutes(@PathVariable Long idFrom, @PathVariable int idTo, @PathVariable String orderBy) {
+    @PostMapping("/routes/{id-from}/{id-to}/{order-by}")
+    public Route getOrderedRoutes(@PathVariable("id-from") Long idFrom, @PathVariable("id-to") int idTo, @PathVariable("order-by") String orderBy) {
         return new Route();
     }
 }
