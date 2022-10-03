@@ -4,6 +4,7 @@ import com.example.soa.model.Length;
 import com.example.soa.model.Response;
 import com.example.soa.model.Route;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -50,7 +51,7 @@ public class NavigatorController {
     )
 
     @PostMapping("/route/{id-from}/{id-to}/{length}")
-    public Route getRouteByLength(@PathVariable("id-from") Integer idFrom, @PathVariable("id-to") int idTo, @PathVariable Length length) {
+    public Route getRouteByLength(@PathVariable("id-from") @Parameter(description = "Id of \"from\" field.", example = "0") Integer idFrom, @PathVariable("id-to") @Parameter(description = "Id of \"to\" field.", example = "0") int idTo, @PathVariable Length length) {
         return new Route();
     }
 
@@ -71,7 +72,7 @@ public class NavigatorController {
             }
     )
     @PostMapping("/routes/{id-from}/{id-to}/{order-by}")
-    public Route getOrderedRoutes(@PathVariable("id-from") Long idFrom, @PathVariable("id-to") int idTo, @PathVariable("order-by") String orderBy) {
+    public Route getOrderedRoutes(@PathVariable("id-from") @Parameter(description = "Id of \"from\" field.", example = "0") Long idFrom, @PathVariable("id-to") @Parameter(description = "Id of \"to\" field.", example = "0") int idTo, @PathVariable("order-by") @Parameter(description = "Field to order.", example = "id") String orderBy) {
         return new Route();
     }
 }

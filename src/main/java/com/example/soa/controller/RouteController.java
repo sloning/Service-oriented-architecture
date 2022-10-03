@@ -1,5 +1,6 @@
 package com.example.soa.controller;
 
+import com.example.soa.dto.RoutesFilterDTO;
 import com.example.soa.model.Location;
 import com.example.soa.model.Response;
 import com.example.soa.model.Route;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Tag(name = "Route", description = "First web-service")
+@Tag(name = "Routes", description = "First web-service")
 @RestController
 @RequestMapping("/routes")
 public class RouteController {
@@ -92,7 +93,7 @@ public class RouteController {
             }
     )
     @GetMapping("/{id}")
-    public Route getById(@PathVariable Long id) {
+    public Route getById(@PathVariable @Parameter(description = "Id of the route.", example = "0") Long id) {
         return new Route();
     }
 
@@ -113,14 +114,8 @@ public class RouteController {
             }
     )
     @GetMapping
-    public List<Route> getAll(@Parameter() @RequestParam(defaultValue = "") String nameFilter,
-                              @RequestParam(defaultValue = "") Long coordinatesXFilter,
-                              @RequestParam(defaultValue = "") Double coordinatesYFilter,
-                              @RequestParam(defaultValue = "") ZonedDateTime creationDateFilter,
-                              @RequestParam(defaultValue = "") Integer locationFromFilter,
-                              @RequestParam(defaultValue = "") Integer locationToFilter,
-                              @RequestParam(defaultValue = "") Float distanceFilter,
-                              @RequestParam(defaultValue = "") Pageable pageable) {
+    public List<Route> getAll(@Parameter(description = "Routes filters", example = "{\"nameFilter\":\"name\",\"coordinatesXFilter\":12.243,\"coordinatesYFilter\":12.243,\"creationDateFilter\":\"2022-09-11T08:47:59.748Z\",\"locationFromFilter\":0,\"locationToFilter\":0,\"distanceFilter\":12.243}") RoutesFilterDTO routesFilter,
+                              @Parameter(description = "Pagination", example = "{\"page\":0,\"size\":10,\"sort\":{\"orders\":[{\"direction\":\"ASC\",\"property\":\"id\"}]}}") @RequestParam(defaultValue = "") Pageable pageable) {
         return new ArrayList<>();
     }
 
@@ -193,7 +188,7 @@ public class RouteController {
             }
     )
     @DeleteMapping("/{route-id}")
-    public void delete(@PathVariable("route-id") Integer routeId) {
+    public void delete(@PathVariable("route-id") @Parameter(description = "Id of the route.", example = "0") Integer routeId) {
         //should delete route
     }
 
@@ -267,7 +262,7 @@ public class RouteController {
             }
     )
     @PostMapping("/groups/{id-to}")
-    public Map<String, Integer> getGroups(@PathVariable("id-to") Long idTo) {
+    public Map<String, Integer> getGroups(@PathVariable("id-to") @Parameter(description = "Id of \"to\" field.", example = "0") Long idTo) {
         return new HashMap<>();
     }
 }
