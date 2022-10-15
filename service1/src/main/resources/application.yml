@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${db_host}/soa
+    url: ${db_soa_host}
     driver-class-name: org.postgresql.Driver
     username: ${db_username}
     password: ${db_password}
@@ -8,7 +8,3 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-    properties:
-      hibernate:
-        id:
-          new_generator_mappings: true
