@@ -45,6 +45,17 @@ public class NavigatorController {
                             )
                     ),
                     @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid length",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Response.class),
+                                    examples = {
+                                            @ExampleObject(value = "{\"message\":\"Invalid length\"}")
+                                    }
+                            )
+                    ),
+                    @ApiResponse(
                             responseCode = "404",
                             description = "Route was not found",
                             content = @Content(
@@ -75,7 +86,18 @@ public class NavigatorController {
                                             @ExampleObject(value = "[{\"id\":1,\"name\":\"From ITMO to dometry\",\"coordinates\":{\"x\":59,\"y\":30.3083},\"creationDate\":\"2022-10-09T14:36:16.583148500+03:00[Europe/Moscow]\",\"from\":{\"id\":2,\"x\":59.9573,\"y\":30.3083,\"z\":95.5543,\"name\":\"ITMO\"},\"to\":{\"id\":3,\"x\":59.8483,\"y\":30.3294,\"z\":95.5544,\"name\":\"Dometry\"},\"distance\":13.5}]")
                                     }
                             )
-                    )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid request",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Response.class),
+                                    examples = {
+                                            @ExampleObject(value = "{\"message\":\"Invalid request\"}")
+                                    }
+                            )
+                    ),
             }
     )
     @PostMapping("/routes")

@@ -23,7 +23,12 @@ public class RouteService {
 
     public List<Route> findFromLocationToLocation(Integer idFrom, Integer idTo, Integer page, Integer size, String orderBy) {
         String url = buildUrl(idFrom, idTo, page, size, orderBy);
-        List<Map<String, Object>> routesList = restTemplate.getForObject(url, List.class);
+        List<Map<String, Object>> routesList = new ArrayList<>();
+        try {
+            routesList = restTemplate.getForObject(url, List.class);
+        } catch (Exception e) {
+            throw new BadRequestException("Invalid request");
+        }
 
         List<Route> routes = new ArrayList<>();
         for (var routeMap : routesList) {
@@ -52,6 +57,9 @@ public class RouteService {
     }
 
     public Route getRouteByLength(Integer idFrom, Integer idTo, Length length) {
+        if (length == null) {
+            throw new BadRequestException("Invalid length");
+        }
         List<Route> routes = findFromLocationToLocation(idFrom, idTo);
         if (routes.isEmpty()) {
             throw new EntityNotFoundException("There are no routes");

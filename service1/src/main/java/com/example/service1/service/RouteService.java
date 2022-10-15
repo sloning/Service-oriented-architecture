@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,12 @@ public class RouteService {
 
     public List<Route> findAll(RoutesFilterDto routesFilter, Pageable pageable) {
         Specification<Route> spec = getSpecification(routesFilter);
-        return routeRepository.findAll(spec, pageable).toList();
+        try {
+            routeRepository.findAll(spec, pageable).toList();
+        } catch (Exception e) {
+            throw new BadRequestException("Invalid request");
+        }
+        return new ArrayList<>();
     }
 
     public List<Route> findAll() {
