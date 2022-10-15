@@ -1,2 +1,6 @@
 server:
-  port: 8081
+  port: 31001
+  ssl:
+    key-store: classpath:soa.jks
+    key-store-password: helios
+    key-store-type: JKS

@@ -1,3 +1,10 @@
+server:
+  port: 31000
+  ssl:
+    enabled: true
+    key-store: classpath:soa.jks
+    key-store-password: helios
+    key-store-type: JKS
 spring:
   datasource:
     url: ${db_soa_host}

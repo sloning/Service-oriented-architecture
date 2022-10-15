@@ -1,5 +1,6 @@
 package com.example.service2.service;
 
+import com.example.service2.exception.BadRequestException;
 import com.example.service2.exception.EntityNotFoundException;
 import com.example.service2.model.Length;
 import com.example.service2.model.Route;
@@ -15,11 +16,21 @@ import java.util.Map;
 
 @Service
 public class RouteService {
+    static {
+        System.setProperty("javax.net.ssl.trustStore", RouteService.class.getClassLoader().getResource("soa.jks").getFile());
+        System.setProperty("javax.net.ssl.trustStorePassword", "helios");
+        System.setProperty("javax.net.ssl.keyStore", RouteService.class.getClassLoader().getResource("soa.jks").getFile());
+        System.setProperty("javax.net.ssl.keyStorePassword", "helios");
+
+        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
+                (hostname, sslSession) -> hostname.equals("localhost")
+        );
+    }
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-    private static final String ROUTES_URL = "http://127.0.0.1:8080/routes";
+    private static final String ROUTES_URL = "https://localhost:31000/routes";
 
     public List<Route> findFromLocationToLocation(Integer idFrom, Integer idTo, Integer page, Integer size, String orderBy) {
         String url = buildUrl(idFrom, idTo, page, size, orderBy);
