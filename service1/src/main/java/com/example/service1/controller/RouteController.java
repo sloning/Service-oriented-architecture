@@ -1,6 +1,7 @@
 package com.example.service1.controller;
 
 import com.example.service1.dto.Response;
+import com.example.service1.dto.RouteUpdateRequestDto;
 import com.example.service1.dto.RoutesFilterDto;
 import com.example.service1.model.Location;
 import com.example.service1.model.Route;
@@ -16,12 +17,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 
 @Tag(name = "Routes", description = "First web-service")
@@ -123,14 +124,14 @@ public class RouteController {
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(schema = @Schema(implementation = Route.class)),
                                     examples = {
-                                            @ExampleObject(value = "[{\"id\":1,\"name\":\"From ITMO to dometry\",\"coordinates\":{\"x\":59,\"y\":30.3083},\"creationDate\":\"2022-10-09T14:36:16.583148500+03:00[Europe/Moscow]\",\"from\":{\"id\":2,\"x\":59.9573,\"y\":30.3083,\"z\":95.5543,\"name\":\"ITMO\"},\"to\":{\"id\":3,\"x\":59.8483,\"y\":30.3294,\"z\":95.5544,\"name\":\"Dometry\"},\"distance\":13.5}]")
+                                            @ExampleObject(value = "{\"content\":[{\"id\":10,\"name\":\"From ITMO to dometry\",\"coordinates\":{\"x\":59,\"y\":30.3083},\"creationDate\":1662886079.748000000,\"from\":{\"id\":8,\"x\":59.9573,\"y\":30.3083,\"z\":95.5543,\"name\":\"ITMO\"},\"to\":{\"id\":9,\"x\":59.8483,\"y\":30.3294,\"z\":95.5544,\"name\":\"Dometry\"},\"distance\":13.5},{\"id\":13,\"name\":\"From ITMO to dometry\",\"coordinates\":{\"x\":59,\"y\":30.3083},\"creationDate\":1662886079.748000000,\"from\":{\"id\":11,\"x\":59.9573,\"y\":30.3083,\"z\":95.5543,\"name\":\"ITMO\"},\"to\":{\"id\":12,\"x\":59.8483,\"y\":30.3294,\"z\":95.5544,\"name\":\"Dometry\"},\"distance\":13.5},{\"id\":16,\"name\":\"From ITMO to dometry\",\"coordinates\":{\"x\":59,\"y\":30.3083},\"creationDate\":1662886079.748000000,\"from\":{\"id\":14,\"x\":59.9573,\"y\":30.3083,\"z\":95.5543,\"name\":\"ITMO\"},\"to\":{\"id\":15,\"x\":59.8483,\"y\":30.3294,\"z\":95.5544,\"name\":\"HOME\"},\"distance\":13.5}],\"pageable\":{\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"offset\":0,\"pageNumber\":0,\"pageSize\":20,\"paged\":true,\"unpaged\":false},\"last\":true,\"totalPages\":1,\"totalElements\":3,\"size\":20,\"number\":0,\"sort\":{\"empty\":true,\"sorted\":false,\"unsorted\":true},\"first\":true,\"numberOfElements\":3,\"empty\":false}")
                                     }
                             )
                     )
             }
     )
     @GetMapping
-    public List<Route> getAll(@Parameter(name = "Routes filters", examples = {@ExampleObject(name = "Example without creation date field", description = "ZonedDateTime doesn't work in swagger (._.')", value = "{\"nameFilter\":\"ITMO\",\"coordinatesXFilter\":59,\"coordinatesYFilter\":30.3083,\"locationFromFilter\":1,\"locationToFilter\":2,\"distanceFilter\":13.5}"), @ExampleObject(name = "Example with all fields", description = "ZonedDateTime doesn't work in swagger (._.')", value = "{\"nameFilter\":\"ITMO\",\"coordinatesXFilter\":59,\"coordinatesYFilter\":30.3083,\"creationDateFilter\":\"2022-10-09T14:36:16.583148500+03:00[Europe/Moscow]\",\"locationFromFilter\":1,\"locationToFilter\":2,\"distanceFilter\":13.5}")}) RoutesFilterDto routesFilter,
+    public Page<Route> getAll(@Parameter(name = "Routes filters", examples = {@ExampleObject(name = "Example without creation date field", description = "ZonedDateTime doesn't work in swagger (._.')", value = "{\"nameFilter\":\"ITMO\",\"coordinatesXFilter\":59,\"coordinatesYFilter\":30.3083,\"locationFromFilter\":1,\"locationToFilter\":2,\"distanceFilter\":13.5}"), @ExampleObject(name = "Example with all fields", description = "ZonedDateTime doesn't work in swagger (._.')", value = "{\"nameFilter\":\"ITMO\",\"coordinatesXFilter\":59,\"coordinatesYFilter\":30.3083,\"creationDateFilter\":\"2022-10-09T14:36:16.583148500+03:00[Europe/Moscow]\",\"locationFromFilter\":1,\"locationToFilter\":2,\"distanceFilter\":13.5}")}) RoutesFilterDto routesFilter,
                               @Parameter(name = "Paging and sorting", examples = {@ExampleObject(name = "Example with paging and sorting", description = "To sort fields use the following format: \"field, order\"", value = "{\"page\":0,\"size\":5,\"sort\":[\"id,desc\",\"name,asc\"]}")}) Pageable pageable) {
         return routeService.findAll(routesFilter, pageable);
     }
@@ -179,7 +180,7 @@ public class RouteController {
             }
     )
     @PutMapping
-    public Route update(@Valid @RequestBody Route route) {
+    public Route update(@Valid @RequestBody RouteUpdateRequestDto route) {
         return routeService.update(route);
     }
 

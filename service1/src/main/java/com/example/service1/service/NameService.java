@@ -1,6 +1,5 @@
 package com.example.service1.service;
 
-import com.example.service1.dto.RoutesFilterDto;
 import com.example.service1.exception.BadRequestException;
 import com.example.service1.model.Location;
 import com.example.service1.model.Route;
@@ -20,7 +19,7 @@ public class NameService {
     private final LocationService locationService;
 
     public WithName findMinimumName() {
-        List<Route> routes = routeService.findAll(new RoutesFilterDto(), Pageable.unpaged());
+        List<Route> routes = routeService.findAll();
         List<Location> locations = locationService.findAll(Pageable.unpaged());
 
         if (routes.isEmpty() && locations.isEmpty()) {

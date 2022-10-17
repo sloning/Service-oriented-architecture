@@ -1,5 +1,6 @@
 package com.example.service1.service;
 
+import com.example.service1.dto.RouteUpdateRequestDto;
 import com.example.service1.dto.RoutesFilterDto;
 import com.example.service1.exception.BadRequestException;
 import com.example.service1.exception.EntityNotFoundException;
@@ -9,11 +10,11 @@ import com.example.service1.repository.RouteRepository;
 import com.example.service1.repository.filter.RouteSpecificationBuilder;
 import com.example.service1.repository.filter.SearchOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,18 +30,17 @@ public class RouteService {
         return routeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Route was not found"));
     }
 
-    public List<Route> findAll(RoutesFilterDto routesFilter, Pageable pageable) {
+    public Page<Route> findAll(RoutesFilterDto routesFilter, Pageable pageable) {
         Specification<Route> spec = getSpecification(routesFilter);
         try {
-            routeRepository.findAll(spec, pageable).toList();
+            return routeRepository.findAll(spec, pageable);
         } catch (Exception e) {
             throw new BadRequestException("Invalid request");
         }
-        return new ArrayList<>();
     }
 
     public List<Route> findAll() {
-        return findAll(new RoutesFilterDto(), Pageable.unpaged());
+        return findAll(new RoutesFilterDto(), Pageable.unpaged()).toList();
     }
 
     private Specification<Route> getSpecification(RoutesFilterDto routesFilter) {
@@ -69,12 +69,31 @@ public class RouteService {
         return specBuilder.build();
     }
 
-    public Route update(Route route) {
-        if (route.getId() == null) {
+    public Route update(RouteUpdateRequestDto routeUpdateRequestDto) {
+        if (routeUpdateRequestDto.getId() == null) {
             throw new BadRequestException("Invalid data");
         }
 
-        getById(route.getId());
+        Route route = getById(routeUpdateRequestDto.getId());
+        if (routeUpdateRequestDto.getCoordinates() != null) {
+            route.setCoordinates(routeUpdateRequestDto.getCoordinates());
+        }
+        if (routeUpdateRequestDto.getDistance() != null) {
+            route.setDistance(routeUpdateRequestDto.getDistance());
+        }
+        if (routeUpdateRequestDto.getCreationDate() != null) {
+            route.setCreationDate(routeUpdateRequestDto.getCreationDate());
+        }
+        if (routeUpdateRequestDto.getName() != null) {
+            route.setName(routeUpdateRequestDto.getName());
+        }
+        if (routeUpdateRequestDto.getFrom() != null) {
+            route.setFrom(routeUpdateRequestDto.getFrom());
+        }
+        if (routeUpdateRequestDto.getTo() != null) {
+            route.setTo(routeUpdateRequestDto.getTo());
+        }
+
         return save(route);
     }
 
@@ -89,8 +108,7 @@ public class RouteService {
         if (location.getId() == null) {
             return locationService.save(location);
         }
-        locationService.getById(location.getId());
-        return location;
+        return locationService.getById(location.getId());
     }
 
     public void delete(int id) {
