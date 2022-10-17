@@ -4,6 +4,7 @@ import com.example.service1.dto.RouteUpdateRequestDto;
 import com.example.service1.dto.RoutesFilterDto;
 import com.example.service1.exception.BadRequestException;
 import com.example.service1.exception.EntityNotFoundException;
+import com.example.service1.model.Coordinates;
 import com.example.service1.model.Location;
 import com.example.service1.model.Route;
 import com.example.service1.repository.RouteRepository;
@@ -75,8 +76,13 @@ public class RouteService {
         }
 
         Route route = getById(routeUpdateRequestDto.getId());
-        if (routeUpdateRequestDto.getCoordinates() != null) {
-            route.setCoordinates(routeUpdateRequestDto.getCoordinates());
+        if (routeUpdateRequestDto.getX() != null) {
+            Coordinates coordinates = route.getCoordinates();
+            coordinates.setX(routeUpdateRequestDto.getX());
+        }
+        if (routeUpdateRequestDto.getY() != null) {
+            Coordinates coordinates = route.getCoordinates();
+            coordinates.setY(routeUpdateRequestDto.getY());
         }
         if (routeUpdateRequestDto.getDistance() != null) {
             route.setDistance(routeUpdateRequestDto.getDistance());
