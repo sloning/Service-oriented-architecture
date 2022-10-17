@@ -1,5 +1,6 @@
 package com.example.service2.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.validation.constraints.DecimalMin;
@@ -18,6 +19,7 @@ public class Route implements WithName {
     @NotNull
     private Coordinates coordinates; //Поле не может быть null
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private ZonedDateTime creationDate = ZonedDateTime.now(); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     @NotNull
     private Location from; //Поле не может быть null

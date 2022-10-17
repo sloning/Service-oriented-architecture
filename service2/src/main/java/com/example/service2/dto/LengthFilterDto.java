@@ -2,11 +2,13 @@ package com.example.service2.dto;
 
 import com.example.service2.model.Length;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class LengthFilterDto {
 
-    private final Integer idFrom;
-    private final Integer idTo;
-    private final Length length;
+    private Integer idFrom;
+    private Integer idTo;
+    private Length length;
 }

@@ -19,8 +19,6 @@ public class RouteService {
     static {
         System.setProperty("javax.net.ssl.trustStore", RouteService.class.getClassLoader().getResource("soa.jks").getFile());
         System.setProperty("javax.net.ssl.trustStorePassword", "helios");
-        System.setProperty("javax.net.ssl.keyStore", RouteService.class.getClassLoader().getResource("soa.jks").getFile());
-        System.setProperty("javax.net.ssl.keyStorePassword", "helios");
 
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
                 (hostname, sslSession) -> hostname.equals("localhost")
@@ -36,7 +34,7 @@ public class RouteService {
         String url = buildUrl(idFrom, idTo, page, size, orderBy);
         List<Map<String, Object>> routesList = new ArrayList<>();
         try {
-            routesList = restTemplate.getForObject(url, List.class);
+            routesList = (List<Map<String, Object>>) restTemplate.getForObject(url, Map.class).get("content");
         } catch (Exception e) {
             throw new BadRequestException("Invalid request");
         }
