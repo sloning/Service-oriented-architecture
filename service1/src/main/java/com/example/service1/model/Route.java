@@ -24,7 +24,7 @@ public class Route implements WithName {
     @Embedded
     private Coordinates coordinates; //Поле не может быть null
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private ZonedDateTime creationDate = ZonedDateTime.now(); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     @NotNull
     @ManyToOne
