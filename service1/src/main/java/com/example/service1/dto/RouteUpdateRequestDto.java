@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import java.time.ZonedDateTime;
 
 @Data
@@ -14,7 +13,6 @@ import java.time.ZonedDateTime;
 public class RouteUpdateRequestDto {
     @Min(1)
     private Integer id;
-    @NotEmpty
     private String name;
     private Long x;
     private Double y;
