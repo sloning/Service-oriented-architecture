@@ -101,7 +101,7 @@ public class NavigatorController {
             }
     )
     @PostMapping("/routes")
-    public List<Route> getOrderedRoutes(@RequestBody @Parameter(description = "Get routes ordered by field (shortest or longest)", examples = {@ExampleObject(name = "Example with all fields", value = "{\"idFrom\":1,\"idTo\":2,\"orderBy\":name}")}) OrderedRoutesDto orderedRoutesDto) {
+    public List<Route> getOrderedRoutes(@RequestBody @Parameter(description = "Get routes ordered by field (shortest or longest)", examples = {@ExampleObject(name = "Example with all fields", value = "{\"idFrom\":1,\"idTo\":2,\"orderBy\":\"name\"}")}) OrderedRoutesDto orderedRoutesDto) {
         return routeService.getOrderedRoutes(orderedRoutesDto.getIdFrom(), orderedRoutesDto.getIdTo(), orderedRoutesDto.getOrderBy());
     }
 }
