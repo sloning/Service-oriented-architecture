@@ -81,6 +81,6 @@ public class RouteService {
     }
 
     public List<Route> getOrderedRoutes(Integer idFrom, Integer idTo, String orderBy) {
-        return findFromLocationToLocation(idFrom, idTo, 0, 1, orderBy);
+        return findFromLocationToLocation(idFrom, idTo, 0, Integer.MAX_VALUE, orderBy);
     }
 }
