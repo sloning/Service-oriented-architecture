@@ -15,5 +15,7 @@
     <modules>
         <module>service1</module>
         <module>service2</module>
+        <module>service1-ejb</module>
+        <module>service2-ejb</module>
     </modules>
 </project>
