@@ -1,4 +1,4 @@
-package com.example.service2.dto;
+package com.example.proxy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -6,9 +6,10 @@
 //
 
 
-package com.example.service2.model;
+package com.example.proxy.model;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
+
 import javax.xml.datatype.XMLGregorianCalendar;
 
 

@@ -15,5 +15,6 @@
     <modules>
         <module>service1</module>
         <module>service2</module>
+        <module>proxy</module>
     </modules>
 </project>

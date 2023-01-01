@@ -1,0 +1,6 @@
+server:
+  port: 31002
+  ssl:
+    key-store: classpath:soa.jks
+    key-store-password: helios
+    key-store-type: JKS
