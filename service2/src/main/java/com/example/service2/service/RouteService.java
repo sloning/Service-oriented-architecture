@@ -2,20 +2,16 @@ package com.example.service2.service;
 
 import com.example.service2.exception.BadRequestException;
 import com.example.service2.exception.EntityNotFoundException;
+import com.example.service2.model.GetRoutesReq;
+import com.example.service2.model.GetRoutesRes;
 import com.example.service2.model.Length;
 import com.example.service2.model.Route;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
-@Service
-public class RouteService {
+public class RouteService extends WebServiceGatewaySupport {
     static {
         System.setProperty("javax.net.ssl.trustStore", RouteService.class.getClassLoader().getResource("soa.jks").getFile());
         System.setProperty("javax.net.ssl.trustStorePassword", "helios");
@@ -25,40 +21,17 @@ public class RouteService {
         );
     }
 
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-
-    private static final String ROUTES_URL = "https://localhost:31000/routes";
-
     public List<Route> findFromLocationToLocation(Integer idFrom, Integer idTo, Integer page, Integer size, String orderBy) {
-        String url = buildUrl(idFrom, idTo, page, size, orderBy);
-        List<Map<String, Object>> routesList = new ArrayList<>();
-        try {
-            routesList = (List<Map<String, Object>>) restTemplate.getForObject(url, Map.class).get("content");
-        } catch (Exception e) {
-            throw new BadRequestException("Invalid request");
-        }
+        var req = new GetRoutesReq();
+        req.setIdFrom(idFrom);
+        req.setIdTo(idTo);
+        req.setPage(page);
+        req.setSize(size);
+        String sort = orderBy + ", desc";
+        req.setSort(sort);
 
-        List<Route> routes = new ArrayList<>();
-        for (var routeMap : routesList) {
-            routes.add(mapper.convertValue(routeMap, Route.class));
-        }
-
-        return routes;
-    }
-
-    private String buildUrl(Integer idFrom, Integer idTo, Integer page, Integer size, String orderBy) {
-        String url = ROUTES_URL;
-        url += "?locationFromFilter=" + idFrom;
-        url += "&locationToFilter=" + idTo;
-        url += "&page=";
-        url += page == null ? 0 : page;
-        url += "&size=";
-        url += size == null ? Integer.MAX_VALUE : size;
-        if (orderBy != null) {
-            url += "&sort=" + orderBy + ",desc";
-        }
-        return url;
+        var res = (GetRoutesRes) getWebServiceTemplate().marshalSendAndReceive(req);
+        return res.getRoutes();
     }
 
     public List<Route> findFromLocationToLocation(Integer idFrom, Integer idTo) {

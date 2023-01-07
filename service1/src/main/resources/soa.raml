@@ -1,0 +1,114 @@
+#%RAML 1.0
+types:
+  Coordinates:
+    properties:
+      x?:
+        example: 59
+        type: number
+        format: int64
+      y?:
+        example: 30.3083
+        type: number
+        format: double
+  Location:
+    properties:
+      id?:
+        example: 1
+        type: number
+        format: int32
+      x?:
+        example: 59.9573
+        type: number
+        format: float
+      y?:
+        example: 30.3083
+        type: number
+        format: double
+      z?:
+        example: 95.5543
+        type: number
+        format: double
+      name?:
+        example: ITMO
+        type: string
+  Route:
+    properties:
+      id?:
+        example: 1
+        type: number
+        format: int32
+      name:
+        example: From ITMO to dometry
+        type: string
+      coordinates:
+        type: Coordinates
+      creationDate:
+        example: 2023-01-02T16:59:03.736Z
+        type: datetime
+        format: rfc3339
+      from:
+        type: Location
+      to:
+        type: Location
+      distance?:
+        example: 322.123
+        type: number
+        format: float
+  Response:
+    properties:
+      message?:
+        example: Exception
+        type: string
+      payload?:
+        type: array | Route
+title: First web-service
+baseUri: localhost:31000
+mediaType:
+  - application/json
+version: 1.0.0
+protocols:
+  - HTTPS
+/routes:
+  get:
+    displayName: Get routes
+    queryParameters:
+      nameFilter?:
+        example: ITMO
+        type: string
+      coordinatesXFilter?:
+        example: 57
+        type: number
+        format: int64
+      coordinatesYFilter?:
+        example: 322.123
+        type: number
+        format: double
+      locationFromFilter?:
+        example: 1
+        type: number
+        format: int32
+      locationToFilter?:
+        example: 2
+        type: number
+        format: int32
+      distanceFilter?:
+        example: 13.5
+        type: number
+        format: float
+      page?:
+        type: number
+        format: int32
+      size?:
+        example: 10
+        type: number
+        format: int32
+      sort?:
+        items:
+          example: Example
+          type: string
+    responses:
+      "200":
+        body:
+          application/json:
+            items:
+              type: Route

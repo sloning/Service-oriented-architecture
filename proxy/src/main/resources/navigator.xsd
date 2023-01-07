@@ -31,6 +31,22 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="getRoutesReq">
+        <xs:sequence>
+            <xs:element name="idFrom" type="xs:int"/>
+            <xs:element name="idTo" type="xs:int"/>
+            <xs:element name="page" type="xs:int"/>
+            <xs:element name="size" type="xs:int"/>
+            <xs:element name="sort" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getRoutesRes">
+        <xs:sequence>
+            <xs:element name="routes" type="tns:route" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="lengthFilterDto">
         <xs:sequence>
             <xs:element name="idFrom" type="xs:int"/>

@@ -17,12 +17,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getOrderedRoutesRes complex type.
+ * <p>Java class for getRoutesRes complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getOrderedRoutesRes"&gt;
+ * &lt;complexType name="getRoutesRes"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -39,8 +39,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "routes"
 })
-@XmlRootElement(name = "getOrderedRoutesRes")
-public class GetOrderedRoutesRes {
+@XmlRootElement(name = "getRoutesRes")
+public class GetRoutesRes {
 
     protected List<Route> routes;
 
@@ -71,10 +71,6 @@ public class GetOrderedRoutesRes {
             routes = new ArrayList<Route>();
         }
         return this.routes;
-    }
-
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
     }
 
 }

@@ -8,26 +8,24 @@
 
 package com.example.service2.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
- * <p>Java class for lengthFilterDto complex type.
+ * <p>Java class for getRoutesReq complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="lengthFilterDto"&gt;
+ * &lt;complexType name="getRoutesReq"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="idFrom" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="idTo" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="length" type="{https://github.com/sloning/Service-oriented-architecture}length"/&gt;
+ *         &lt;element name="page" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="size" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="sort" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,18 +35,22 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "lengthFilterDto", propOrder = {
+@XmlType(name = "", propOrder = {
     "idFrom",
     "idTo",
-    "length"
+    "page",
+    "size",
+    "sort"
 })
-public class LengthFilterDto {
+@XmlRootElement(name = "getRoutesReq")
+public class GetRoutesReq {
 
     protected int idFrom;
     protected int idTo;
+    protected int page;
+    protected int size;
     @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected Length length;
+    protected String sort;
 
     /**
      * Gets the value of the idFrom property.
@@ -83,27 +85,59 @@ public class LengthFilterDto {
     }
 
     /**
-     * Gets the value of the length property.
+     * Gets the value of the page property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Length }
-     *     
      */
-    public Length getLength() {
-        return length;
+    public int getPage() {
+        return page;
     }
 
     /**
-     * Sets the value of the length property.
+     * Sets the value of the page property.
+     * 
+     */
+    public void setPage(int value) {
+        this.page = value;
+    }
+
+    /**
+     * Gets the value of the size property.
+     * 
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * Sets the value of the size property.
+     * 
+     */
+    public void setSize(int value) {
+        this.size = value;
+    }
+
+    /**
+     * Gets the value of the sort property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSort() {
+        return sort;
+    }
+
+    /**
+     * Sets the value of the sort property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Length }
+     *     {@link String }
      *     
      */
-    public void setLength(Length value) {
-        this.length = value;
+    public void setSort(String value) {
+        this.sort = value;
     }
 
 }
