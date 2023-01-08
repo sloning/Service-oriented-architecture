@@ -27,8 +27,10 @@ public class RouteService extends WebServiceGatewaySupport {
         req.setIdTo(idTo);
         req.setPage(page);
         req.setSize(size);
-        String sort = orderBy + ", desc";
-        req.setSort(sort);
+        if (orderBy != null) {
+            String sort = orderBy + ", desc";
+            req.setSort(sort);
+        }
 
         var res = (GetRoutesRes) getWebServiceTemplate().marshalSendAndReceive(req);
         return res.getRoutes();
