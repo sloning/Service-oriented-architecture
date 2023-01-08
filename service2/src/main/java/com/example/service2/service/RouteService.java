@@ -28,7 +28,7 @@ public class RouteService extends WebServiceGatewaySupport {
         req.setPage(page);
         req.setSize(size);
         if (orderBy != null) {
-            String sort = orderBy + ", desc";
+            String sort = orderBy + ",desc";
             req.setSort(sort);
         }
 
